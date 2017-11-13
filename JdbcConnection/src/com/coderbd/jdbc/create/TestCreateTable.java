@@ -15,10 +15,9 @@ public class TestCreateTable {
     //static Connection conn = MySqlDbConnection.getConnection();
      static Connection conn = OracleDBConnection.getConnection("xe", "hr", "hr");
     public static void main(String[] args) {
-        String sql = "CREATE TABLE student " +
+        String sql = "CREATE TABLE studentbd " +
                    "(id INTEGER not NULL, " +
-                   " name VARCHAR(255), " + 
-                   " age INTEGER, " + 
+                   " student_name VARCHAR(255), " +                   
                    " PRIMARY KEY ( id ))"; 
         try {
             PreparedStatement pstm=conn.prepareStatement(sql);
