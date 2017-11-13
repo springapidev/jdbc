@@ -3,9 +3,12 @@ package com.coderbd.jdbc.service;
 import com.coderbd.jdbc.connections.OracleDBConnection;
 import com.coderbd.jdbc.dao.StudentDao;
 import com.coderbd.jdbc.domain.Student;
+import com.coderbd.jdbc.query.DataRetrieveService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +38,8 @@ public class StudentService implements StudentDao {
     public void update(Student s) {
         try {
             if (s.getId() != 0) {
-                PreparedStatement stmt = conn.prepareStatement("update studentbd set student_name=? where id=?");
+                PreparedStatement stmt = conn.prepareStatement
+        ("update studentbd set student_name=? where id=?");
 
                 stmt.setString(1, s.getStudentName());
                 stmt.setInt(2, s.getId());
@@ -52,12 +56,13 @@ public class StudentService implements StudentDao {
     public void delete(int id) {
         try {
             if (id != 0) {
-                PreparedStatement stmt = conn.prepareStatement("delete from student where id=?");
+                PreparedStatement stmt = conn.prepareStatement(
+                        "delete from studentbd where id=?");
 
                 stmt.setInt(1, id);
 
                 int i = stmt.executeUpdate();
-                System.out.println(i + " records Deleted");
+                System.out.println(i + " record Deleted");
             }
             // conn.close();
         } catch (SQLException ex) {
@@ -67,12 +72,41 @@ public class StudentService implements StudentDao {
 
     @Override
     public List<Student> getStudents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          List<Student> list = new ArrayList<>();
+        try {
+            Student s;
+            PreparedStatement stmt = conn.prepareStatement("select *from studentbd");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                s = new Student();
+                s.setId(rs.getInt(1));
+                s.setStudentName(rs.getString(2));             
+                list.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataRetrieveService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
     @Override
     public Student getStudent(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Student s=null;
+        try {
+           
+            PreparedStatement stmt = conn.prepareStatement("select * from studentbd where id=?");
+             stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                s = new Student();
+                s.setId(rs.getInt(1));
+                s.setStudentName(rs.getString(2));             
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataRetrieveService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return s;
     }
 
 }
