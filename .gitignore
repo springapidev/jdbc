@@ -2,3 +2,5 @@
 /jdbc/build/
 /jdbc/dist/
 /jdbc/target/
+/JdbcConnection/nbproject/private/
+/JdbcConnection/build/

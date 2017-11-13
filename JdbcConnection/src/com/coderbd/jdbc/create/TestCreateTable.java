@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.coderbd.jdbc.createtable;
+package com.coderbd.jdbc.create;
 
-import com.coderbd.jdbc.connections.MySqlDbConnection;
 import com.coderbd.jdbc.connections.OracleDBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +9,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Rajail Islam
+ * @author Rajaul Islam
  */
 public class TestCreateTable {
     //static Connection conn = MySqlDbConnection.getConnection();
