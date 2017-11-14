@@ -13,7 +13,7 @@ import com.coderbd.jdbc.domain.Student;
  */
 public class App {
     public static void main(String[] args) {
-        Student s=new Student("Shohan", 23);
+        Student s=new Student("Fahmida", 27);
         TestInsert.save(s);
     }
 }

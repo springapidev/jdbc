@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.coderbd</groupId>
-    <artifactId>jdbc</artifactId>
+    <artifactId>talking-to-database-java</artifactId>
     <version>1.0.1</version>
     <packaging>jar</packaging>
     <properties>
@@ -10,7 +10,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <dependencies>
+     <dependencies>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
@@ -18,10 +18,11 @@
             <version>5.1.44</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/oracle/ojdbc6 -->
-        <!---dependency>
+        <!--dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
         </dependency-->
     </dependencies>
+    <name>talking-to-database-java</name>
 </project>

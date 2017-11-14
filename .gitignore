@@ -4,3 +4,5 @@
 /jdbc/target/
 /JdbcConnection/nbproject/private/
 /JdbcConnection/build/
+/jdbc-metadata/target/
+/talking-to-database-java/target/
