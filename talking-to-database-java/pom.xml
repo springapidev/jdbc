@@ -12,17 +12,17 @@
     </properties>
      <dependencies>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <!--dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.44</version>
-        </dependency-->
+        </dependency>
         <!-- https://mvnrepository.com/artifact/oracle/ojdbc6 -->
-        <dependency>
+        <!--dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
-        </dependency>
+        </dependency-->
     </dependencies>
     <name>talking-to-database-java</name>
 </project>
