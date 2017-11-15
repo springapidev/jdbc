@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,8 +25,10 @@ public class DataRetrieveService {
 
         try {
             Employees employee;
-            PreparedStatement stmt = conn.prepareStatement("select * from employees");
-            ResultSet rs = stmt.executeQuery();
+           // PreparedStatement stmt = conn.prepareStatement("select * from employees");
+            Statement stmt=conn.createStatement();
+            
+            ResultSet rs = stmt.executeQuery("select * from employees");
             while (rs.next()) {
                 employee = new Employees();
                 employee.setEmployeeID(rs.getInt(1));

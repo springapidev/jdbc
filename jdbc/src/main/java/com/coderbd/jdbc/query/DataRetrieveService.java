@@ -21,7 +21,6 @@ public class DataRetrieveService {
 
     public static List<Student> getStudentList() {
         List<Student> list = new ArrayList<>();
-
         try {
             Student s;
             PreparedStatement stmt = conn.prepareStatement("select *from student");

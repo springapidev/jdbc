@@ -18,12 +18,12 @@ public class Test {
 //Check for delete
         // studentService.delete(101);
         //get list of student
-     /*   List<Student> list = studentService.getStudents();
+       List<Student> list = studentService.getStudents();
         for (Student s : list) {
             System.out.println("ID: " + s.getId() + " Name; " + s.getStudentName());
         }
              
-             */
+             
         // get single student according to id
         Student student = studentService.getStudent(1003);
         System.out.println("ID: " + student.getId() + " Name; " + student.getStudentName());

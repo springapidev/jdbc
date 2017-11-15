@@ -94,7 +94,8 @@ public class StudentService implements StudentDao {
          Student s=null;
         try {
            
-            PreparedStatement stmt = conn.prepareStatement("select * from studentbd where id=?");
+            PreparedStatement stmt = conn.prepareStatement(
+                    "select * from studentbd where id=?");
              stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

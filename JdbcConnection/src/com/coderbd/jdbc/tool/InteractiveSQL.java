@@ -1,4 +1,4 @@
-package com.coderbd.jdbc.metadata.tool;
+package com.coderbd.jdbc.tool;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;          
