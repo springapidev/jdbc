@@ -6,3 +6,5 @@
 /JdbcConnection/build/
 /jdbc-metadata/target/
 /talking-to-database-java/target/
+/AccessConnection/nbproject/private/
+/AccessConnection/build/
