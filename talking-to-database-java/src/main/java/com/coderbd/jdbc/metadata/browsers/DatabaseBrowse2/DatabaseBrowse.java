@@ -215,7 +215,7 @@ class DatabaseBrowse extends JFrame implements ActionListener {
   
   private String userID = "root";
   private String password = "1234";
-  private String url = "jdbc:mysql://localhost:3306/swing";
+  private String url = "jdbc:mysql://localhost:3306/sm";
 
   private JTextField database = new JTextField(url);
   private JTextField userIDInput = new JTextField(userID);

@@ -16,9 +16,9 @@ import org.w3c.dom.Element;
 
 /**
  *
- * @author Rajail Islam
+ * @author Rajaul Islam
  */
-public class ReadaccessAndWriteToXml {
+public class ReadaccessStudentAndWriteToXml {
     public static void main(String[] args) {
         accessDBToXml();
     }
@@ -29,19 +29,18 @@ public class ReadaccessAndWriteToXml {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
-            Element results = doc.createElement("StudentAttendanceList");
+            Element results = doc.createElement("testlist");
             doc.appendChild(results);
            
 
             Connection con = AccessConnection.getAccessConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT  userinfo.badgenumber, checkinout.checktime, userinfo.instituteID FROM userinfo INNER JOIN checkinout"
-                    + " ON userinfo.userid=checkinout.userid");
+            ResultSet rs = con.createStatement().executeQuery("SELECT * from urmi");
 
             ResultSetMetaData rsmd = rs.getMetaData();
             int colCount = rsmd.getColumnCount();
 
             while (rs.next()) {
-                Element row = doc.createElement("StudentPunchdetails");
+                Element row = doc.createElement("testlist");
                 results.appendChild(row);
                 for (int i = 1; i <= colCount; i++) {
                     String columnName = rsmd.getColumnName(i);
@@ -60,7 +59,7 @@ public class ReadaccessAndWriteToXml {
             DOMSource source = new DOMSource(doc);
             StreamResult result
                     = //  new StreamResult(new File("../AttnSolutions/xml/studentsAttendance.xml"));
-                    new StreamResult(new FileOutputStream("studentsAttendance.xml"));
+                    new StreamResult(new FileOutputStream("testlist.xml"));
             transformer.transform(source, result);
             // Output to console for testing
             StreamResult consoleResult

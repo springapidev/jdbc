@@ -1,5 +1,6 @@
 package com.coderbd.jdbc.service;
 
+import com.coderbd.jdbc.connections.MySqlDbConnection;
 import com.coderbd.jdbc.connections.OracleDBConnection;
 import com.coderbd.jdbc.dao.StudentDao;
 import com.coderbd.jdbc.domain.Student;
@@ -15,8 +16,8 @@ import java.util.logging.Logger;
 
 public class StudentService implements StudentDao {
 
-    Connection conn = OracleDBConnection.getConnection("xe", "hr", "hr");
-
+   // Connection conn = OracleDBConnection.getConnection("xe", "hr", "hr");
+ Connection conn=MySqlDbConnection.getConnection();
     @Override
     public void save(Student s) {
         try {

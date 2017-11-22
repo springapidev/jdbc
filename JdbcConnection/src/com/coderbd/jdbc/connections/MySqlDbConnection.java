@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class MySqlDbConnection {
     private static final String HOST = "jdbc:mysql://localhost:3306";
-    private static final String DBNMAE = "sm";
+    private static final String DBNMAE = "sm?useServerPrepStmts=true";
     private static final String URL = HOST + "/" + DBNMAE;
     private static Connection con = null;
 
