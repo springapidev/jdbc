@@ -6,6 +6,7 @@
 package com.coderbd.jdbc.view;
 
 import com.coderbd.jdbc.domain.Student;
+import com.coderbd.jdbc.query.DataListNiyeAsi;
 import com.coderbd.jdbc.service.StudentService;
 import com.sun.xml.internal.fastinfoset.tools.StAX2SAXReader;
 import java.util.List;
@@ -17,13 +18,15 @@ import javax.swing.table.TableModel;
  * @author J2EE-33
  */
 public class StudentForm extends javax.swing.JFrame {
-private StudentService studentService;
+
+    private StudentService studentService;
+
     /**
      * Creates new form Student
      */
     public StudentForm() {
         initComponents();
-        
+
         displayStudentssWithinTable();
     }
 
@@ -227,61 +230,80 @@ private StudentService studentService;
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         studentService = new StudentService();
-        Student student=new Student(Integer.parseInt(txtID.getText()), txtName.getText());
+        Student student = new Student(Integer.parseInt(txtID.getText()), txtName.getText());
         studentService.save(student);
-        
+
         lblMsg.setText("1 Record Successfully Saved!");
         refreshTable();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tblDisplayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDisplayMouseClicked
-       int i = tblDisplay.getSelectedRow();
+        int i = tblDisplay.getSelectedRow();
         TableModel model = tblDisplay.getModel();
         txtID.setText(model.getValueAt(i, 0).toString());
         txtName.setText(model.getValueAt(i, 1).toString());
-  
+
     }//GEN-LAST:event_tblDisplayMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-       studentService = new StudentService();
-        Student student=new Student(Integer.parseInt(txtID.getText()), txtName.getText());
+        studentService = new StudentService();
+        Student student = new Student(Integer.parseInt(txtID.getText()), txtName.getText());
         studentService.update(student);
-        
+
         lblMsg.setText("1 Record Successfully Updated!");
         refreshTable();
-        
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-      studentService = new StudentService();
+        studentService = new StudentService();
         int i = tblDisplay.getSelectedRow();
         TableModel model = tblDisplay.getModel();
         int id = Integer.parseInt(model.getValueAt(i, 0).toString());
         studentService.delete(id);
         lblMsg.setText("1 Record Successfully Deleted!");
         refreshTable();
-       
+
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-      txtID.setText("");
-      txtName.setText("");
-       lblMsg.setText("");
+        txtID.setText("");
+        txtName.setText("");
+        lblMsg.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
- 
-    public void clearFormAfterAction(){
-      txtID.setText("");
-      txtName.setText("");
-     
+
+    public void clearFormAfterAction() {
+        txtID.setText("");
+        txtName.setText("");
+
     }
-    
+
     public void refreshTable() {
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
         model.setRowCount(0);
         displayStudentssWithinTable();
         clearFormAfterAction();
     }
- public void displayStudentssWithinTable() {
+
+    public void displayStudentList() {
+        List<Student> students = DataListNiyeAsi.getStudentList();
+        Student std = students.get(students.size() - 1);        
+        txtID.setText(String.valueOf(std.getId() + 1));
+
+        DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[3];
+
+        for (int i = 0; i < students.size(); i++) {
+            row[0] = students.get(i).getId();
+            row[1] = students.get(i).getStudentName();
+            row[2] = students.get(i).getEmail();
+            model.addRow(row);
+        }
+    }
+
+    public void displayStudentssWithinTable() {
+
         studentService = new StudentService();
         List<Student> students = studentService.getStudents();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
@@ -293,7 +315,8 @@ private StudentService studentService;
             model.addRow(row);
         }
 
- }
+    }
+
     /**
      * @param args the command line arguments
      */

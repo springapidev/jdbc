@@ -1,6 +1,7 @@
 package com.coderbd.jdbc.insert;
 
 import com.coderbd.jdbc.connections.MySqlDbConnection;
+import com.coderbd.jdbc.domain.Student;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +39,22 @@ public class InsertIntoTable {
         }
 
     }
+    
+      public static void insertData3(Student s) {
+        String sql = "insert into division(id, name) values(?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, s.getId());
+            ps.setString(2, s.getStudentName());
+            ps.executeUpdate();
+
+            System.out.println("data Inserted");
+        } catch (SQLException ex) {
+            Logger.getLogger(InsertIntoTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 
     public static ResultSet getDataById(int id) {
         ResultSet rs = null;

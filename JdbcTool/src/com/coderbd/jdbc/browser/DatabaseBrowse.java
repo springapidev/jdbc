@@ -1,4 +1,4 @@
-package com.coderbd.jdbc.metadata.browsers.DatabaseBrowse3;
+package com.coderbd.jdbc.browser;
 
 import javax.swing.SwingUtilities;
 import javax.swing.JFrame;

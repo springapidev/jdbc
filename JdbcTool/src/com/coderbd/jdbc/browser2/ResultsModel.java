@@ -1,4 +1,4 @@
-package com.coderbd.jdbc.metadata.browsers.DatabaseBrowse2;
+package com.coderbd.jdbc.browser2;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
