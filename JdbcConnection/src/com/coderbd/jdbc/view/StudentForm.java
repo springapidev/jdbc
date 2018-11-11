@@ -304,9 +304,10 @@ public class StudentForm extends javax.swing.JFrame {
 
     public void displayStudentssWithinTable() {
 
-        studentService = new StudentService();
+       // studentService = new StudentService();
         List<Student> students = studentService.getStudents();
         DefaultTableModel model = (DefaultTableModel) tblDisplay.getModel();
+        model.setRowCount(0);
         Object[] row = new Object[2];
 
         for (int i = 0; i < students.size(); i++) {
