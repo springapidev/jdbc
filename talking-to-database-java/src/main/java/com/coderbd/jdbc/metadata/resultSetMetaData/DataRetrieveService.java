@@ -22,7 +22,7 @@ public class DataRetrieveService {
 
         try {
            
-            PreparedStatement stmt = conn.prepareStatement("select *from student");
+            PreparedStatement stmt = conn.prepareStatement("select * from student");
 
             ResultSet rs = stmt.executeQuery();
 

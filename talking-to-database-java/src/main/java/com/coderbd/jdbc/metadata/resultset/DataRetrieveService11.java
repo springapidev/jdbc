@@ -28,7 +28,7 @@ public class DataRetrieveService11 {
             PreparedStatement stmt = conn.prepareStatement("select *from student");
 
             ResultSet rs = stmt.executeQuery();
-            //getting the record of 3rd row  
+            //getting the record of First row  
             rs.first();
             System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
 
