@@ -7,9 +7,10 @@ public class CategoryTest {
 
     public static void main(String[] args) {
         // CategoryService.createTable();
-        Category c = new Category();
-        c.setName("Laptop");
-        CategoryService.insert(c);
+//        Category c = new Category();
+//        c.setName("Laptop");
+//        CategoryService.insert(c);
+        CategoryService.getCatList();
     }
 
 }

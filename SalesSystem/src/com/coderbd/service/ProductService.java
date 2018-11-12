@@ -2,9 +2,11 @@ package com.coderbd.service;
 
 import com.coderbd.connections.MySqlDbConnection;
 import com.coderbd.domain.Product;
+import com.coderbd.domain.Summary;
+import static com.coderbd.service.SummaryService.conn;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +43,47 @@ public class ProductService {
         } catch (SQLException ex) {
             Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void dataInsertOrUpdateIntoProductAndSummaryTable(Product p) {
+        insert(p);
+
+        Product product = getProductByName(p.getName());
+
+        int totalQty = 0;
+        int avilaleQty = 0;
+
+        if (p.getId() != 0) {
+            Summary sumFromDb = SummaryService.getSummaryById(p.getId());
+            totalQty = sumFromDb.getTotalQty() + p.getQty();
+            avilaleQty = totalQty - sumFromDb.getSoldQty();
+
+            Summary summary1 = new Summary(sumFromDb.getId(), totalQty, 0, avilaleQty);
+            SummaryService.update(summary1);
+        } else {
+
+            Summary summary3 = new Summary(product, p.getQty(), 0, p.getQty());
+            SummaryService.insert(summary3);
+        }
+    }
+
+    public static Product getProductByName(String productName) {
+        Product product = new Product();
+        String sql = "select * from product where name=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, productName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                product.setId(rs.getInt(1));
+                product.setName(rs.getString(2));
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return product;
     }
 
 }

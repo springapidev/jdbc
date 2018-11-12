@@ -47,10 +47,13 @@ public class CategoryService {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Category(rs.getInt(1), rs.getString(2)));
+                list.add(new Category(rs.getInt(1), rs.getString(100)));
             }
 
         } catch (SQLException ex) {
+            System.out.println(" ex.getMessage(): " + ex.getMessage());
+            System.out.println(" ex.getErrorCode(): " + ex.getErrorCode());
+            System.out.println(" ex.getSQLState(): " + ex.getSQLState());
             Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;

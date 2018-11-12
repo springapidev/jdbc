@@ -6,19 +6,20 @@ import com.coderbd.service.ProductService;
 import java.util.Date;
 
 public class ProductTest {
-
+    
     public static void main(String[] args) {
-       // ProductService.createTable();
+        // ProductService.createTable();
         Product product = new Product();
-        product.setName("Lenevo 6200");
-        product.setQty(30);
+        product.setId(8);
+        product.setName("Hp i 5");
+        product.setQty(20);
         product.setUnitPrice(50000);
         product.setTotalPrice(1500000);
         product.setPurchaseDate(new Date());
         Category category = new Category();
         category.setId(2);
         product.setCategory(category);
-        ProductService.insert(product);
+        ProductService.dataInsertOrUpdateIntoProductAndSummaryTable(product);
     }
-
+    
 }
