@@ -10,11 +10,11 @@ public class ProductTest {
     public static void main(String[] args) {
         // ProductService.createTable();
         Product product = new Product();
-        product.setId(8);
-        product.setName("Hp i 5");
+        product.setId(18);
+        product.setName("Lenovo");
         product.setQty(20);
         product.setUnitPrice(50000);
-        product.setTotalPrice(1500000);
+        product.setTotalPrice(1000000);
         product.setPurchaseDate(new Date());
         Category category = new Category();
         category.setId(2);

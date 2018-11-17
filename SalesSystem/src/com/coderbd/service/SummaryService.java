@@ -57,7 +57,7 @@ public class SummaryService {
 
     }
 
-    public static Summary getSummaryById(int productId) {
+    public static Summary getSummaryByProductId(int productId) {
         Summary summary = null;
         String sql = "select * from summary where product_id=?";
         try {

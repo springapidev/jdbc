@@ -4,6 +4,7 @@ import com.coderbd.connections.MySqlDbConnection;
 import com.coderbd.domain.Product;
 import com.coderbd.domain.Summary;
 import static com.coderbd.service.SummaryService.conn;
+import java.beans.Transient;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,18 +48,14 @@ public class ProductService {
 
     public static void dataInsertOrUpdateIntoProductAndSummaryTable(Product p) {
         insert(p);
-
         Product product = getProductByName(p.getName());
+        
+           if (p.getId() != 0) {
+            Summary sumFromDb = SummaryService.getSummaryByProductId(p.getId());
+            int totalQty = sumFromDb.getTotalQty() + p.getQty();
+            int avilaleQty = totalQty - sumFromDb.getSoldQty();
 
-        int totalQty = 0;
-        int avilaleQty = 0;
-
-        if (p.getId() != 0) {
-            Summary sumFromDb = SummaryService.getSummaryById(p.getId());
-            totalQty = sumFromDb.getTotalQty() + p.getQty();
-            avilaleQty = totalQty - sumFromDb.getSoldQty();
-
-            Summary summary1 = new Summary(sumFromDb.getId(), totalQty, 0, avilaleQty);
+            Summary summary1 = new Summary(sumFromDb.getId(), totalQty, sumFromDb.getSoldQty(), avilaleQty);
             SummaryService.update(summary1);
         } else {
 

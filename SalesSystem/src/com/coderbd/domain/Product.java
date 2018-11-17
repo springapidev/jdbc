@@ -12,6 +12,7 @@ public class Product {
     private double totalPrice;
     private Date purchaseDate;
     private Category category;
+    private String productCode;
 
     public int getId() {
         return id;
@@ -67,6 +68,14 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
 }
