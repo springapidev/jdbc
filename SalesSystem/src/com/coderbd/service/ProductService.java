@@ -3,8 +3,6 @@ package com.coderbd.service;
 import com.coderbd.connections.MySqlDbConnection;
 import com.coderbd.domain.Product;
 import com.coderbd.domain.Summary;
-import static com.coderbd.service.SummaryService.conn;
-import java.beans.Transient;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,6 +68,25 @@ public class ProductService {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, productName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                product.setId(rs.getInt(1));
+                product.setName(rs.getString(2));
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return product;
+    }
+    
+     public static Product getProductDetails(String productCode) {
+        Product product = new Product();
+        String sql = " select * from purchase p, Category c where p.productCode=? and p.cat_id=c.id limit 1";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, productCode);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 product.setId(rs.getInt(1));

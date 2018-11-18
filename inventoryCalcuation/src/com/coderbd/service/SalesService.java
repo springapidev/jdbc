@@ -1,12 +1,18 @@
 package com.coderbd.service;
 
 import com.coderbd.connection.MySqlDbConnection;
+import com.coderbd.domain.ProductCategory;
+import com.coderbd.domain.Purchase;
 import com.coderbd.domain.Sales;
 import com.coderbd.domain.Summary;
+import static com.coderbd.service.PurchaseService.conn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +66,34 @@ public class SalesService {
                 System.out.println("You do not have sufficient Product");
             }
         }
+    }
+     public static List<Sales> getSalesList() {
+        List<Sales> list = new ArrayList<>();
+
+        String sql = "select s.productName,s.productCode, s.qty, s.unitPrice, s.totalPrice, s.salesdate, c.name from sales s, purchase p, category c where s.product_id=p.id and p.cat_id=c.id";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Sales sales = new Sales();              
+                sales.setProductName(rs.getString(1));
+                sales.setProductCode(rs.getString(2));
+                sales.setQty(rs.getInt(3));
+                sales.setUnitprice(rs.getDouble(4));
+                sales.setTotalPrice(rs.getDouble(5));
+                sales.setSalesdate(rs.getDate(6));
+                ProductCategory pc=new ProductCategory();
+                pc.setName(rs.getString(7));
+                Purchase p = new Purchase();
+                p.setProductCategory(pc);
+                sales.setPurchase(p);
+                list.add(sales);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PurchaseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
 }

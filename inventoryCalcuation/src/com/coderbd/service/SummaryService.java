@@ -1,6 +1,7 @@
 package com.coderbd.service;
 
 import com.coderbd.connection.MySqlDbConnection;
+import com.coderbd.domain.ProductCategory;
 import com.coderbd.domain.Purchase;
 import com.coderbd.domain.Summary;
 import com.coderbd.domain.User;
@@ -9,11 +10,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SummaryService {
-
+    
     static Connection conn = MySqlDbConnection.getConnection();
 
     /*
@@ -30,7 +33,7 @@ public class SummaryService {
             Logger.getLogger(SummaryService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public static void insert(Summary summary) {
         String sql = "insert into summary(productName,productCode, totalQty,soldQty,availableQty,lastUpdate, product_id) values(?,?,?,?,?,?,?)";
         try {
@@ -48,7 +51,7 @@ public class SummaryService {
             Logger.getLogger(SummaryService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public static void update(Summary summary) {
         String sql = "update summary set totalQty=?,soldQty=?,availableQty=?,lastUpdate=? where productCode=?";
         try {
@@ -58,23 +61,23 @@ public class SummaryService {
             ps.setInt(3, summary.getAvailableQty());
             ps.setDate(4, new java.sql.Date(summary.getLastUpdate().getTime()));
             ps.setString(5, summary.getProductCode());
-
+            
             ps.executeUpdate();
             System.out.println("Data Updated in Summary!");
         } catch (SQLException ex) {
             Logger.getLogger(SummaryService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public static Summary getSummaryByProductCode(String productCode) {
         Summary summary = new Summary();
         String sql = "select * from summary where productCode=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, productCode);
-
+            
             ResultSet rs = ps.executeQuery();
-
+            
             while (rs.next()) {
                 summary.setId(rs.getInt(1));
                 summary.setProductName(rs.getString(2));
@@ -92,5 +95,33 @@ public class SummaryService {
         }
         return summary;
     }
-
+    
+    public static List<Summary> getSummaryList() {
+        List<Summary> list = new ArrayList<>();
+        
+        String sql = "select s.productName, s.productCode, s.totalQty, s.soldQty, s.availableQty, c.name from summary s, purchase p, category c where s.product_id=p.id and p.cat_id=c.id";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Summary summary = new Summary();                
+                summary.setProductName(rs.getString(1));
+                summary.setProductCode(rs.getString(2));
+                summary.setTotalQty(rs.getInt(3));
+                summary.setSoldQty(rs.getInt(4));
+                summary.setAvailableQty(rs.getInt(5));                
+                ProductCategory pc = new ProductCategory();
+                pc.setName(rs.getString("name"));
+                Purchase p = new Purchase();
+                p.setProductCategory(pc);
+                summary.setPurchase(p);
+                list.add(summary);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
 }

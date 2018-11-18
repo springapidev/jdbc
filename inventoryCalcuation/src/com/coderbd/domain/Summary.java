@@ -102,6 +102,11 @@ public class Summary {
         this.purchase = purchase;
     }
 
+    @Override
+    public String toString() {
+        return "Summary{" + "id=" + id + ", productName=" + productName + ", productCode=" + productCode + ", totalQty=" + totalQty + ", soldQty=" + soldQty + ", availableQty=" + availableQty + ", lastUpdate=" + lastUpdate + ", purchase=" + purchase + '}';
+    }
+
     
 
 }

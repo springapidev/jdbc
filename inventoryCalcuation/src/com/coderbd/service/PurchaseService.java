@@ -4,12 +4,13 @@ import com.coderbd.connection.MySqlDbConnection;
 import com.coderbd.domain.ProductCategory;
 import com.coderbd.domain.Purchase;
 import com.coderbd.domain.Summary;
-import static com.coderbd.service.SummaryService.conn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,4 +100,60 @@ public class PurchaseService {
         }
     }
 
+    public static Purchase getProductDetails(String productCode) {
+        Purchase purchase = new Purchase();
+        String sql = " select * from purchase p, Category c where p.productCode=? and p.cat_id=c.id limit 1";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, productCode);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                purchase.setId(rs.getInt(1));
+                purchase.setProductName(rs.getString(2));
+                purchase.setProductCode(rs.getString(3));
+                purchase.setQty(rs.getInt(4));
+                purchase.setUnitprice(rs.getDouble(5));
+                purchase.setTotalPrice(rs.getDouble(6));
+                purchase.setPurchasedate(rs.getDate(7));
+                ProductCategory pc = new ProductCategory();
+                pc.setId(rs.getInt(8));
+                pc.setName(rs.getString("name"));
+                purchase.setProductCategory(pc);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PurchaseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return purchase;
+    }
+
+    public static List<Purchase> getProductList() {
+        List<Purchase> list = new ArrayList<>();
+
+        String sql = "select * from purchase p, Category c where p.cat_id=c.id";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Purchase purchase = new Purchase();
+                purchase.setId(rs.getInt(1));
+                purchase.setProductName(rs.getString(2));
+                purchase.setProductCode(rs.getString(3));
+                purchase.setQty(rs.getInt(4));
+                purchase.setUnitprice(rs.getDouble(5));
+                purchase.setTotalPrice(rs.getDouble(6));
+                purchase.setPurchasedate(rs.getDate(7));
+                ProductCategory pc = new ProductCategory();
+                pc.setId(rs.getInt(8));
+                pc.setName(rs.getString("name"));
+                purchase.setProductCategory(pc);
+                list.add(purchase);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PurchaseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

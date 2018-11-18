@@ -2,12 +2,12 @@ package com.coderbd.service;
 
 import com.coderbd.connection.MySqlDbConnection;
 import com.coderbd.domain.ProductCategory;
-import com.coderbd.domain.Purchase;
-import com.coderbd.domain.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,6 +44,25 @@ public class ProductCategoryService {
         } catch (SQLException ex) {
             Logger.getLogger(ProductCategoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static List<ProductCategory> getCatList() {
+        List<ProductCategory> list = new ArrayList<>();
+
+        String sql = "select * from category";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductCategory pc = new ProductCategory();
+                pc.setId(rs.getInt(1));
+                pc.setName(rs.getString(2));
+                list.add(pc);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductCategoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
 }
