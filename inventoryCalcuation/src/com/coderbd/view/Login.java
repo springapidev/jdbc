@@ -7,7 +7,7 @@ package com.coderbd.view;
 
 import com.coderbd.domain.User;
 import com.coderbd.service.UserService;
-import java.util.Date;
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,11 +15,15 @@ import java.util.Date;
  */
 public class Login extends javax.swing.JFrame {
 
+    public static String loggedIn = "";
+    public static int loggedInUserId = 0;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -116,10 +120,13 @@ public class Login extends javax.swing.JFrame {
         if (txtUsername.getText().length() > 0 && txtPass.getText().length() > 2) {
             User user = UserService.getUserbyUserName(txtUsername.getText(), txtPass.getText(), true);
             if (user.getUsername() != null) {
+                loggedInUserId = user.getId();
                 if (user.getUserType().equals("admin")) {
+                    loggedIn = "Hello " + user.getFirstName() + " " + user.getLastName() + " You are loggedIn as admin";
                     this.setVisible(false);
                     new DashBoard().setVisible(true);
                 } else {
+                    loggedIn = "Hello " + user.getFirstName() + " " + user.getLastName() + " You are loggedIn as Salesman";
                     this.setVisible(false);
                     new UserDashBoard().setVisible(true);
                 }

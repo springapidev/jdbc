@@ -5,6 +5,8 @@
  */
 package com.coderbd.view;
 
+import com.coderbd.util.MenuFormSalesMan;
+
 /**
  *
  * @author User
@@ -16,6 +18,7 @@ public class UserDashBoard extends javax.swing.JFrame {
      */
     public UserDashBoard() {
         initComponents();
+        MenuFormSalesMan.commonMenuForSalesMan(this);
     }
 
     /**

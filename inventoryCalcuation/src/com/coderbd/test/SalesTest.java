@@ -12,8 +12,8 @@ public class SalesTest {
         Purchase p = new Purchase();
         p.setId(16);
 
-        Sales sales = new Sales("Hp 6000 Laptop", "HP600", 5, 50000, 250000, new Date(), p);
+      /*  Sales sales = new Sales("Hp 6000 Laptop", "HP600", 5, 50000, 250000, new Date(), p);
         SalesService.insertForSales(sales);
-
+*/
     }
 }

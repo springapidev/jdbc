@@ -13,11 +13,12 @@ public class Purchase {
     private Date purchasedate;
     //For Foreign key
     ProductCategory productCategory;
+    User user;
 
     public Purchase() {
     }
 
-    public Purchase(String productName, String productCode, int qty, double unitprice, double totalPrice, Date purchasedate, ProductCategory productCategory) {
+    public Purchase(String productName, String productCode, int qty, double unitprice, double totalPrice, Date purchasedate, ProductCategory productCategory,User user) {
         this.productName = productName;
         this.productCode = productCode;
         this.qty = qty;
@@ -25,6 +26,7 @@ public class Purchase {
         this.totalPrice = totalPrice;
         this.purchasedate = purchasedate;
         this.productCategory = productCategory;
+        this.user=user;
     }
 
     public int getId() {
@@ -91,10 +93,17 @@ public class Purchase {
         this.productCategory = productCategory;
     }
 
-    @Override
-    public String toString() {
-        return "Purchase{" + "id=" + id + ", productName=" + productName + ", productCode=" + productCode + ", qty=" + qty + ", unitprice=" + unitprice + ", totalPrice=" + totalPrice + ", purchasedate=" + purchasedate + ", productCategory=" + productCategory + '}';
+    public User getUser() {
+        return user;
     }
 
-  
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase{" + "id=" + id + ", productName=" + productName + ", productCode=" + productCode + ", qty=" + qty + ", unitprice=" + unitprice + ", totalPrice=" + totalPrice + ", purchasedate=" + purchasedate + ", productCategory=" + productCategory + ", user=" + user + '}';
+    }
+
 }

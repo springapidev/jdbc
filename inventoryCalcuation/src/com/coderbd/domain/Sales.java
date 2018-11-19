@@ -14,10 +14,12 @@ public class Sales {
     //For Foreign key
     Purchase purchase;
 
+    User user;
+
     public Sales() {
     }
 
-    public Sales(String productName, String productCode, int qty, double unitprice, double totalPrice, Date salesdate, Purchase purchase) {
+    public Sales(String productName, String productCode, int qty, double unitprice, double totalPrice, Date salesdate, Purchase purchase, User user) {
         this.productName = productName;
         this.productCode = productCode;
         this.qty = qty;
@@ -25,6 +27,7 @@ public class Sales {
         this.totalPrice = totalPrice;
         this.salesdate = salesdate;
         this.purchase = purchase;
+        this.user = user;
     }
 
     public Sales(String productCode, int qty, double unitprice, double totalPrice, Date salesdate) {
@@ -99,9 +102,17 @@ public class Sales {
         this.purchase = purchase;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
-        return "Sales{" + "id=" + id + ", productName=" + productName + ", productCode=" + productCode + ", qty=" + qty + ", unitprice=" + unitprice + ", totalPrice=" + totalPrice + ", salesdate=" + salesdate + ", purchase=" + purchase + '}';
+        return "Sales{" + "id=" + id + ", productName=" + productName + ", productCode=" + productCode + ", qty=" + qty + ", unitprice=" + unitprice + ", totalPrice=" + totalPrice + ", salesdate=" + salesdate + ", purchase=" + purchase + ", user=" + user + '}';
     }
 
 }

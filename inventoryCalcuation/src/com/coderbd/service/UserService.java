@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -70,5 +72,33 @@ public class UserService {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;
+    }
+
+    public static List<User> getUserList() {
+        List<User> list = new ArrayList<>();
+
+        String sql = "select * from user";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt(1));
+                user.setUsername(rs.getString(2));
+                user.setPassword(rs.getString(3));
+                user.setUserType(rs.getString(4));
+                user.setFirstName(rs.getString(5));
+                user.setLastName(rs.getString(6));
+                user.setEmail(rs.getString(7));
+                user.setMobile(rs.getString(8));
+                user.setRegiDate(rs.getDate(9));
+                user.setStatus(rs.getBoolean(10));
+                list.add(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 }

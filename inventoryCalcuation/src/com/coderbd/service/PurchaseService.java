@@ -4,6 +4,7 @@ import com.coderbd.connection.MySqlDbConnection;
 import com.coderbd.domain.ProductCategory;
 import com.coderbd.domain.Purchase;
 import com.coderbd.domain.Summary;
+import com.coderbd.domain.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ public class PurchaseService {
     static Connection conn = MySqlDbConnection.getConnection();
 
     public static void createTable() {
-        String sql = "create table purchase(id int auto_increment primary key, productName varchar(30) not null, productCode varchar(30) not null,qty int(11) not null,unitprice double not null,  totalPrice double not null, purchasedate Date not null, cat_id int(11) not null, foreign key (cat_id) references category(id))";
+        String sql = "create table purchase(id int auto_increment primary key, productName varchar(30) not null, productCode varchar(30) not null,qty int(11) not null,unitprice double not null,  totalPrice double not null, purchasedate Date not null, cat_id int(11) not null, foreign key (cat_id) references category(id),user_id int(11) not null, foreign key (user_id) references user(id))";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.execute();
@@ -30,7 +31,7 @@ public class PurchaseService {
     }
 
     public static void insert(Purchase purchase) {
-        String sql = "insert into purchase(productName, productCode,qty, unitprice, totalPrice, purchasedate, cat_id) values(?,?,?,?,?,?,?)";
+        String sql = "insert into purchase(productName, productCode,qty, unitprice, totalPrice, purchasedate, cat_id,user_id) values(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, purchase.getProductName());
@@ -40,6 +41,7 @@ public class PurchaseService {
             ps.setDouble(5, purchase.getTotalPrice());
             ps.setDate(6, new java.sql.Date(purchase.getPurchasedate().getTime()));
             ps.setInt(7, purchase.getProductCategory().getId());
+            ps.setInt(8, purchase.getUser().getId());
             ps.executeUpdate();
             System.out.println("Data Inserted!");
         } catch (SQLException ex) {
@@ -67,6 +69,10 @@ public class PurchaseService {
                 ProductCategory c = new ProductCategory();
                 c.setId(rs.getInt(8));
                 purchase.setProductCategory(c);
+                User user = new User();
+                user.setId(rs.getInt(9));
+                purchase.setUser(user);
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,7 +125,9 @@ public class PurchaseService {
                 pc.setId(rs.getInt(8));
                 pc.setName(rs.getString("name"));
                 purchase.setProductCategory(pc);
-
+                User user = new User();
+                user.setId(rs.getInt(9));
+                purchase.setUser(user);
             }
 
         } catch (SQLException ex) {
@@ -148,6 +156,9 @@ public class PurchaseService {
                 pc.setId(rs.getInt(8));
                 pc.setName(rs.getString("name"));
                 purchase.setProductCategory(pc);
+                User user = new User();
+                user.setId(rs.getInt(9));
+                purchase.setUser(user);
                 list.add(purchase);
             }
 

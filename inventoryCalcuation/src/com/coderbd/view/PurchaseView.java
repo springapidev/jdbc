@@ -8,9 +8,11 @@ package com.coderbd.view;
 import com.coderbd.domain.ProductCategory;
 import com.coderbd.domain.Purchase;
 import com.coderbd.domain.Summary;
+import com.coderbd.domain.User;
 import com.coderbd.service.ProductCategoryService;
 import com.coderbd.service.PurchaseService;
 import com.coderbd.service.SummaryService;
+import com.coderbd.util.MenuFormAdmin;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -30,20 +32,22 @@ public class PurchaseView extends javax.swing.JFrame {
         comboBoxItemsFromDatabase();
         displaySummaryIntoTable();
         displayPurchaseIntoTable();
+        MenuFormAdmin.commonMenuForAdmin(this);
+         txtLoginMsg.setText(Login.loggedIn);
     }
     private DefaultComboBoxModel comboBoxModel = null;
-
+    
     public void comboBoxItemsFromDatabase() {
         comboBoxModel = new DefaultComboBoxModel();
         List<ProductCategory> list = ProductCategoryService.getCatList();
         comboBoxModel.addElement("Select A category");
         for (ProductCategory pc : list) {
-
+            
             comboBoxModel.addElement(pc.getId() + " " + pc.getName());
         }
         cmbCategory.setModel(comboBoxModel);
     }
-
+    
     public void clearForm() {
         cmbCategory.setSelectedIndex(0);
         txtPName.setText("");
@@ -53,7 +57,7 @@ public class PurchaseView extends javax.swing.JFrame {
         txtTotalPrice.setText("");
         lblMsg.setText("");
     }
-
+    
     public void displaySummaryIntoTable() {
         DefaultTableModel model = (DefaultTableModel) tblSummary.getModel();
         model.setRowCount(0);
@@ -68,9 +72,9 @@ public class PurchaseView extends javax.swing.JFrame {
             row[5] = summarys.get(i).getPurchase().getProductCategory().getName();
             model.addRow(row);
         }
-
+        
     }
-
+    
     public void displayPurchaseIntoTable() {
         DefaultTableModel model = (DefaultTableModel) tblPurchase.getModel();
         model.setRowCount(0);
@@ -84,10 +88,10 @@ public class PurchaseView extends javax.swing.JFrame {
             row[4] = list.get(i).getTotalPrice();
             row[5] = list.get(i).getPurchasedate();
             row[6] = list.get(i).getProductCategory().getName();
-
+            
             model.addRow(row);
         }
-
+        
     }
 
     /**
@@ -102,6 +106,7 @@ public class PurchaseView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        txtLoginMsg = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -145,14 +150,21 @@ public class PurchaseView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(522, 522, 522))
+                .addGap(44, 44, 44)
+                .addComponent(txtLoginMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(txtLoginMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap())))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
@@ -427,9 +439,12 @@ public class PurchaseView extends javax.swing.JFrame {
         // System.out.println("ID: " + splited[0]);
         ProductCategory pc = new ProductCategory();
         pc.setId(Integer.parseInt(splited[0]));
-        Purchase p = new Purchase(txtPName.getText(), txtPCode.getText(), Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), new Date(), pc);
+        User user = new User();
+        user.setId(Login.loggedInUserId);
+        
+        Purchase p = new Purchase(txtPName.getText(), txtPCode.getText(), Integer.parseInt(txtQty.getText()), Double.parseDouble(txtUnitPrice.getText()), Double.parseDouble(txtTotalPrice.getText()), new Date(), pc, user);
         PurchaseService.insertMain(p);
-
+        
         clearForm();
         lblMsg.setText("Purchase Success!");
         displaySummaryIntoTable();
@@ -451,7 +466,7 @@ public class PurchaseView extends javax.swing.JFrame {
         } else {
             x = Integer.parseInt(txtUnitPrice.getText());
             y = Double.parseDouble(txtQty.getText());
-
+            
             txtTotalPrice.setText(String.valueOf(x * y));
         }
     }//GEN-LAST:event_txtQtyKeyTyped
@@ -474,7 +489,7 @@ public class PurchaseView extends javax.swing.JFrame {
         } catch (NullPointerException e) {
             lblMsg.setText("Enter Valid Product Code");
         }
-
+        
 
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -550,6 +565,7 @@ public class PurchaseView extends javax.swing.JFrame {
     private javax.swing.JLabel lblMsg;
     private javax.swing.JTable tblPurchase;
     private javax.swing.JTable tblSummary;
+    private javax.swing.JLabel txtLoginMsg;
     private javax.swing.JTextField txtPCode;
     private javax.swing.JTextField txtPName;
     private javax.swing.JTextField txtQty;

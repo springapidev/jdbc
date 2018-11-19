@@ -3,10 +3,13 @@ package com.coderbd.view;
 import com.coderbd.domain.Purchase;
 import com.coderbd.domain.Sales;
 import com.coderbd.domain.Summary;
+import com.coderbd.domain.User;
 import com.coderbd.service.PurchaseService;
+import com.coderbd.service.ReportService;
 import com.coderbd.service.SalesService;
 import com.coderbd.service.SummaryService;
-import com.coderbd.util.MenuFormAdmin;
+import com.coderbd.util.MenuFormSalesMan;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -15,16 +18,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author User
  */
-public class SalesView extends javax.swing.JFrame {
+public class SalesViewForSalesMan extends javax.swing.JFrame {
 
-    public SalesView() {
+    public SalesViewForSalesMan() {
         initComponents();
         displaySummaryIntoTable();
-        displaySalesIntoTable();
-        txtProductId.setVisible(false);
-        MenuFormAdmin.commonMenuForAdmin(this);
-        txtLoginMsg.setText(Login.loggedIn);
+        if (rAllSales.isSelected() == true) {
+            displaySalesIntoTable();
+        }
 
+        txtProductId.setVisible(false);
+        MenuFormSalesMan.commonMenuForSalesMan(this);
+        txtLoginMsg.setText(Login.loggedIn);
     }
 
     public void clearForm() {
@@ -58,7 +63,7 @@ public class SalesView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblSales.getModel();
         model.setRowCount(0);
         Object[] row = new Object[7];
-        List<Sales> list = SalesService.getSalesList();
+        List<Sales> list = ReportService.getSalesByUser(Login.loggedInUserId);
         for (int i = 0; i < list.size(); i++) {
             row[0] = list.get(i).getProductName();
             row[1] = list.get(i).getProductCode();
@@ -111,6 +116,12 @@ public class SalesView extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSales = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        rAllSales = new javax.swing.JRadioButton();
+        txtStartDate = new javax.swing.JTextField();
+        txtEndDate = new javax.swing.JTextField();
+        btnViewSales = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -131,20 +142,16 @@ public class SalesView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLoginMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtLoginMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtLoginMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(2, 2, 2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtLoginMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -328,19 +335,62 @@ public class SalesView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblSales);
 
+        jLabel11.setText("From Date");
+
+        jLabel12.setText("To Date");
+
+        rAllSales.setSelected(true);
+        rAllSales.setText("All");
+
+        txtStartDate.setText("2018-01-15");
+
+        txtEndDate.setText("2018-12-31");
+
+        btnViewSales.setBackground(new java.awt.Color(255, 153, 0));
+        btnViewSales.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnViewSales.setText("View Sales");
+        btnViewSales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewSalesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(rAllSales)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnViewSales)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnViewSales))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rAllSales)
+                        .addComponent(jLabel11)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -444,12 +494,41 @@ public class SalesView extends javax.swing.JFrame {
         Purchase purchase = new Purchase();
         purchase.setId(Integer.parseInt(txtProductId.getText().trim()));
         sales.setPurchase(purchase);
+        User user = new User();
+        user.setId(Login.loggedInUserId);
+        sales.setUser(user);
         SalesService.insertForSales(sales);
         clearForm();
         lblMsg.setText("Sales Success!");
         displaySummaryIntoTable();
         displaySalesIntoTable();
     }//GEN-LAST:event_btnSalesActionPerformed
+
+    private void btnViewSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSalesActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblSales.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[7];
+        try {
+            Date sdate = new SimpleDateFormat("yyyy-MM-dd").parse(txtStartDate.getText().trim());
+            Date edate = new SimpleDateFormat("yyyy-MM-dd").parse(txtEndDate.getText().trim());
+            List<Sales> list = ReportService.getSalesByUserAndDateRange(Login.loggedInUserId, sdate, edate);
+            for (int i = 0; i < list.size(); i++) {
+                row[0] = list.get(i).getProductName();
+                row[1] = list.get(i).getProductCode();
+                row[2] = list.get(i).getQty();
+                row[3] = list.get(i).getUnitprice();
+                row[4] = list.get(i).getTotalPrice();
+                row[5] = list.get(i).getSalesdate();
+                row[6] = list.get(i).getPurchase().getProductCategory().getName();
+
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }
+
+
+    }//GEN-LAST:event_btnViewSalesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,14 +547,18 @@ public class SalesView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SalesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesViewForSalesMan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SalesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesViewForSalesMan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SalesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesViewForSalesMan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SalesView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesViewForSalesMan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -484,7 +567,7 @@ public class SalesView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SalesView().setVisible(true);
+                new SalesViewForSalesMan().setVisible(true);
             }
         });
     }
@@ -493,8 +576,11 @@ public class SalesView extends javax.swing.JFrame {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSales;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnViewSales;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -511,14 +597,17 @@ public class SalesView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblMsg;
+    private javax.swing.JRadioButton rAllSales;
     private javax.swing.JTable tblSales;
     private javax.swing.JTable tblSummary;
     private javax.swing.JLabel txtAvialble;
+    private javax.swing.JTextField txtEndDate;
     private javax.swing.JLabel txtLoginMsg;
     private javax.swing.JTextField txtPCode;
     private javax.swing.JTextField txtPName;
     private javax.swing.JLabel txtProductId;
     private javax.swing.JTextField txtQty;
+    private javax.swing.JTextField txtStartDate;
     private javax.swing.JLabel txtTotalPrice;
     private javax.swing.JTextField txtUnitPrice;
     // End of variables declaration//GEN-END:variables
