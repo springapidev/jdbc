@@ -500,7 +500,7 @@ public class PurchaseView extends javax.swing.JFrame {
 
     private void txtQtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtyKeyPressed
         // TODO add your handling code here:
-        int price = Integer.parseInt(txtUnitPrice.getText().trim()) * Integer.parseInt(txtQty.getText().trim());
+        double price = Double.parseDouble(txtUnitPrice.getText().trim()) * Integer.parseInt(txtQty.getText().trim());
         txtTotalPrice.setText(String.valueOf(price));
     }//GEN-LAST:event_txtQtyKeyPressed
 

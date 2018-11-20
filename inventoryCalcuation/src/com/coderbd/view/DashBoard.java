@@ -5,6 +5,7 @@
  */
 package com.coderbd.view;
 
+import com.coderbd.domain.AdminDashBoard;
 import com.coderbd.service.ReportService;
 import com.coderbd.util.MenuFormAdmin;
 
@@ -25,8 +26,19 @@ public class DashBoard extends javax.swing.JFrame {
     }
 
     public void displayDashBoarddata() {
-        double totalAmount = ReportService.getTotalPurchaseAmount();
-        btnEntirePurchaseAmount.setText(String.valueOf(totalAmount));
+        AdminDashBoard data = ReportService.getDashboardDetails();
+        btnTodaysPurchase.setText(String.valueOf(data.getTodaysPurchaseAmount()));
+        btnCurrentMonthPurchase.setText(String.valueOf(data.getCurrentMonthPurchaseAmount()));
+        btnEntirePurchaseAmount.setText(String.valueOf(data.getEntirePurchaseAmount()));
+
+        btnTotalPurchaseItems.setText(String.valueOf(data.getTotalItems()));
+        btnTodayPurchseItem.setText(String.valueOf(data.getTodaysPurchaseItem()));
+/////////////////////////sales//////////////////
+        btnTodaySales.setText(String.valueOf(data.getTodaysSalesAmount()));
+        btnCurrentMonthSales.setText(String.valueOf(data.getCurrentMonthSalesAmount()));
+        btnEntireSales.setText(String.valueOf(data.getEntireSalesAmount()));
+        btnTotalSalesItems.setText(String.valueOf(data.getTotalSoldItems()));
+        btnTodaysSoldItems.setText(String.valueOf(data.getTodaysSoldItems()));
     }
 
     /**
@@ -46,13 +58,13 @@ public class DashBoard extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btnEntirePurchaseAmount = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnTodaysPurchase = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnCurrentMonthPurchase = new javax.swing.JButton();
+        btnTodayPurchseItem = new javax.swing.JButton();
+        btnTotalPurchaseItems = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -61,11 +73,11 @@ public class DashBoard extends javax.swing.JFrame {
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
+        btnCurrentMonthSales = new javax.swing.JButton();
+        btnEntireSales = new javax.swing.JButton();
+        btnTotalSalesItems = new javax.swing.JButton();
+        btnTodaysSoldItems = new javax.swing.JButton();
+        btnTodaySales = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -113,14 +125,14 @@ public class DashBoard extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(0, 204, 102));
         jButton3.setText("Entire Purchase:");
 
-        jButton4.setBackground(new java.awt.Color(204, 204, 0));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton4.setText("0.0");
+        btnTodaysPurchase.setBackground(new java.awt.Color(204, 204, 0));
+        btnTodaysPurchase.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnTodaysPurchase.setText("0.0");
 
         jButton5.setBackground(new java.awt.Color(255, 204, 0));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 153, 0));
-        jButton5.setText("Availabe Items");
+        jButton5.setText("Total Items");
 
         jButton6.setBackground(new java.awt.Color(255, 204, 0));
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -132,22 +144,22 @@ public class DashBoard extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(51, 51, 255));
         jButton7.setText("CMonth Purchase:");
 
-        jButton8.setBackground(new java.awt.Color(204, 204, 0));
-        jButton8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton8.setText("0.0");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnCurrentMonthPurchase.setBackground(new java.awt.Color(204, 204, 0));
+        btnCurrentMonthPurchase.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCurrentMonthPurchase.setText("0.0");
+        btnCurrentMonthPurchase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnCurrentMonthPurchaseActionPerformed(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(204, 204, 0));
-        jButton9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton9.setText("0.0");
+        btnTodayPurchseItem.setBackground(new java.awt.Color(204, 204, 0));
+        btnTodayPurchseItem.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnTodayPurchseItem.setText("0");
 
-        jButton10.setBackground(new java.awt.Color(204, 204, 0));
-        jButton10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton10.setText("0.0");
+        btnTotalPurchaseItems.setBackground(new java.awt.Color(204, 204, 0));
+        btnTotalPurchaseItems.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnTotalPurchaseItems.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,7 +171,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(10, 10, 10)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
+                        .addComponent(btnTodaysPurchase, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,16 +181,16 @@ public class DashBoard extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnCurrentMonthPurchase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEntirePurchaseAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnTotalPurchaseItems, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(btnTodayPurchseItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -187,11 +199,11 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTodaysPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCurrentMonthPurchase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,11 +211,11 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(btnEntirePurchaseAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(4, 4, 4)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                    .addComponent(btnTotalPurchaseItems, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                    .addComponent(btnTodayPurchseItem, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
@@ -233,7 +245,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         jButton11.setBackground(new java.awt.Color(0, 153, 255));
         jButton11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton11.setText("Today's Sales");
+        jButton11.setText("C.Month Sales");
 
         jButton12.setBackground(new java.awt.Color(0, 153, 255));
         jButton12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -241,35 +253,35 @@ public class DashBoard extends javax.swing.JFrame {
 
         jButton13.setBackground(new java.awt.Color(0, 153, 255));
         jButton13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton13.setText("Today's Sales");
+        jButton13.setText("Sold Total Items");
 
         jButton14.setBackground(new java.awt.Color(0, 153, 255));
         jButton14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton14.setText("Today's Sales");
+        jButton14.setText("Today Sales Items");
 
         jButton15.setBackground(new java.awt.Color(0, 153, 255));
         jButton15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton15.setText("Today's Sales");
+        jButton15.setText("Entire Sales");
 
-        jButton16.setBackground(new java.awt.Color(255, 255, 204));
-        jButton16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton16.setText("0.0");
+        btnCurrentMonthSales.setBackground(new java.awt.Color(255, 255, 204));
+        btnCurrentMonthSales.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCurrentMonthSales.setText("0.0");
 
-        jButton17.setBackground(new java.awt.Color(255, 255, 204));
-        jButton17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton17.setText("0.0");
+        btnEntireSales.setBackground(new java.awt.Color(255, 255, 204));
+        btnEntireSales.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnEntireSales.setText("0.0");
 
-        jButton18.setBackground(new java.awt.Color(255, 255, 204));
-        jButton18.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton18.setText("0.0");
+        btnTotalSalesItems.setBackground(new java.awt.Color(255, 255, 204));
+        btnTotalSalesItems.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnTotalSalesItems.setText("0");
 
-        jButton19.setBackground(new java.awt.Color(255, 255, 204));
-        jButton19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton19.setText("0.0");
+        btnTodaysSoldItems.setBackground(new java.awt.Color(255, 255, 204));
+        btnTodaysSoldItems.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnTodaysSoldItems.setText("0");
 
-        jButton20.setBackground(new java.awt.Color(255, 255, 204));
-        jButton20.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton20.setText("0.0");
+        btnTodaySales.setBackground(new java.awt.Color(255, 255, 204));
+        btnTodaySales.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnTodaySales.setText("0.0");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -286,13 +298,13 @@ public class DashBoard extends javax.swing.JFrame {
                             .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jButton19, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                            .addComponent(btnTotalSalesItems, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(btnCurrentMonthSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEntireSales, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(btnTodaysSoldItems, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGap(222, 222, 222)
-                        .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(btnTodaySales, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
@@ -304,23 +316,23 @@ public class DashBoard extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTodaySales, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCurrentMonthSales, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEntireSales, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTotalSalesItems, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTodaysSoldItems, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
@@ -360,9 +372,9 @@ public class DashBoard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btnCurrentMonthPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrentMonthPurchaseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btnCurrentMonthPurchaseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,26 +412,26 @@ public class DashBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCurrentMonthPurchase;
+    private javax.swing.JButton btnCurrentMonthSales;
     private javax.swing.JButton btnEntirePurchaseAmount;
+    private javax.swing.JButton btnEntireSales;
+    private javax.swing.JButton btnTodayPurchseItem;
+    private javax.swing.JButton btnTodaySales;
+    private javax.swing.JButton btnTodaysPurchase;
+    private javax.swing.JButton btnTodaysSoldItems;
+    private javax.swing.JButton btnTotalPurchaseItems;
+    private javax.swing.JButton btnTotalSalesItems;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
